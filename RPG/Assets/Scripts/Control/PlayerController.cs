@@ -12,11 +12,12 @@ namespace RPG.Control   //creating a name space to control dependencies
 
         private void Update()
         {
-            InteractWithCombat();
-            InteractWithMovement();
+            if (InteractWithCombat()) return;
+            if (InteractWithMovement()) return;
+            print("No Move Permited");
         }
 
-        private void InteractWithCombat()
+        private bool InteractWithCombat()
         {
             RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());   // shoot raycast to look for a target in priority and if none found move instead
             foreach (RaycastHit hit in hits)
@@ -28,27 +29,25 @@ namespace RPG.Control   //creating a name space to control dependencies
                 {
                     GetComponent<Fighter>().Attack(target);
                 }
+                return true;
             }
-
+            return false;
         }
 
-        private void InteractWithMovement()
-        {
-            if (Input.GetMouseButton(0))
-            {
-                MoveToCurser();
-            }
-        }
-
-        private void MoveToCurser()
+        private bool InteractWithMovement()
         {
             //extracted Camera.main.ScreenPointToRay(Input.mousePosition)
             RaycastHit hit;
             bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
             if (hasHit)
             {
-                GetComponent<Mover>().MoveTo(hit.point);
+                if(Input.GetMouseButton(0))
+                {
+                    GetComponent<Mover>().MoveTo(hit.point);
+                }
+                return true;
             }
+            return false;
         }
 
         private static Ray GetMouseRay()
