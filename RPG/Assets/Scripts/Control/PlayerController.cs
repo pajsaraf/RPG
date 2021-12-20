@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿//using System.Collections;
+//using System.Collections.Generic;
 using UnityEngine;
 using RPG.Movement;
 using System;
@@ -14,7 +14,6 @@ namespace RPG.Control   //creating a name space to control dependencies
         {
             if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;
-            print("No Move Permited");
         }
 
         private bool InteractWithCombat()
@@ -36,7 +35,6 @@ namespace RPG.Control   //creating a name space to control dependencies
 
         private bool InteractWithMovement()
         {
-            //extracted Camera.main.ScreenPointToRay(Input.mousePosition)
             RaycastHit hit;
             bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
             if (hasHit)
@@ -44,6 +42,7 @@ namespace RPG.Control   //creating a name space to control dependencies
                 if(Input.GetMouseButton(0))
                 {
                     GetComponent<Mover>().MoveTo(hit.point);
+                    GetComponent<Mover>().StartMoveAction(hit.point);
                 }
                 return true;
             }
