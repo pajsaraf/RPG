@@ -5,14 +5,14 @@ using RPG.Core;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour
+    public class Fighter : MonoBehaviour, IAction
     {  
         [SerializeField] float weaponRange = 2f;
         Transform target;   
 
         private void Update()
         {
-            if (target == null) return;
+            if (target == null) return; 
 
             if (!GetIsInRange())
             {
@@ -20,8 +20,8 @@ namespace RPG.Combat
             }
             else
             {
-                GetComponent<Mover>().Stop();
-            }
+                GetComponent<Mover>().Cancel();
+            } 
         }
 
         private bool GetIsInRange()
