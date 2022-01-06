@@ -10,10 +10,15 @@ namespace RPG.Combat
 
         bool isDead = false;
 
+        public bool IsDead()
+        {
+            return isDead;
+        }
+
         public void TakeDamage(float damage)
         {
             healthPoints = Mathf.Max(healthPoints - damage, 0);  //healthPoints = (max health - damage) or 0 so health can never be less than zero
-            print(healthPoints);
+            //print(healthPoints);
             if (healthPoints <= 0)
             {
                 Die();
@@ -26,6 +31,7 @@ namespace RPG.Combat
             
             isDead = true;
             GetComponent<Animator>().SetTrigger("die");
+
         }
     }
 

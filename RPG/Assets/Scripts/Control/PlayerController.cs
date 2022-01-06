@@ -22,7 +22,12 @@ namespace RPG.Control   //creating a name space to control dependencies
             foreach (RaycastHit hit in hits)
             {
                 CombatTarget target = hit.transform.GetComponent<CombatTarget>();
-                if (target == null) continue;
+                //if (target == null) continue;   moved to Fighter   CanAttack method
+
+                if (!GetComponent<Fighter>().CanAttack(target))   // if we cant attack cause the target is dead
+                {
+                    continue;  // then send raycast through the dead
+                }
 
                 if(Input.GetMouseButtonDown(0))
                 {
