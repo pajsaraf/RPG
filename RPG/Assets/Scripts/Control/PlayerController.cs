@@ -22,16 +22,17 @@ namespace RPG.Control   //creating a name space to control dependencies
             foreach (RaycastHit hit in hits)
             {
                 CombatTarget target = hit.transform.GetComponent<CombatTarget>();
-                //if (target == null) continue;   moved to Fighter   CanAttack method
+                if (target == null) continue;  
 
-                if (!GetComponent<Fighter>().CanAttack(target))   // if we cant attack cause the target is dead
+                //GameObject tagetGameObject = target.gameObject; // go to fighter script and take the gameobject we call target
+                if (!GetComponent<Fighter>().CanAttack(target.gameObject))   // if we cant attack cause the target is dead
                 {
                     continue;  // then send raycast through the dead
                 }
 
                 if(Input.GetMouseButtonDown(0))
                 {
-                    GetComponent<Fighter>().Attack(target);
+                    GetComponent<Fighter>().Attack(target.gameObject);
                 }
                 return true;
             }
