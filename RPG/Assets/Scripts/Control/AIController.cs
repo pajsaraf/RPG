@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Combat;
 using RPG.Core;
+using RPG.Movement;
 
 namespace RPG.Control
 {
@@ -13,13 +14,19 @@ namespace RPG.Control
         
         Fighter fighter;
         GameObject player;
+        Mover mover;
         Health health;
+
+        Vector3 guardPosition;
 
         private void Start() 
         {
             fighter = GetComponent<Fighter>();
             health = GetComponent<Health>();
+            mover = GetComponent<Mover>();
             player = GameObject.FindWithTag("Player");
+
+            guardPosition = transform.position;  //ai guards the area it starts at
         }
 
         private void Update()
@@ -32,7 +39,7 @@ namespace RPG.Control
             }
             else
             {
-                fighter.Cancel();
+                mover.StartMoveAction(guardPosition);
             }
 
         }
