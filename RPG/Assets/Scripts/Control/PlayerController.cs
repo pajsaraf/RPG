@@ -39,7 +39,7 @@ namespace RPG.Control   //creating a name space to control dependencies
                     continue;  // then send raycast through the dead
                 }
 
-                if(Input.GetMouseButtonDown(0))
+                if(Input.GetMouseButton(0))
                 {
                     GetComponent<Fighter>().Attack(target.gameObject);
                 }
