@@ -4,14 +4,23 @@ using UnityEngine;
 using RPG.Movement;
 using System;
 using RPG.Combat;
+using RPG.Core;
 
 namespace RPG.Control   //creating a name space to control dependencies
 {
     public class PlayerController : MonoBehaviour
     {
+        Health health;
+
+        private void Start() 
+        {
+            health = GetComponent<Health>();
+        }
 
         private void Update()
         {
+            if (health.IsDead()) return; // if its dead then dont do anything
+
             if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;
         }
