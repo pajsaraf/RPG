@@ -11,13 +11,15 @@ namespace RPG.Control
     {
 
         [SerializeField] float chaseDistance = 5f;
-        
+        [SerializeField] float suspicionTime = 5f;
+
         Fighter fighter;
         GameObject player;
         Mover mover;
         Health health;
 
         Vector3 guardPosition;
+        float timeSinceLastSawPlayer = Mathf.Infinity;
 
         private void Start() 
         {
@@ -27,6 +29,7 @@ namespace RPG.Control
             player = GameObject.FindWithTag("Player");
 
             guardPosition = transform.position;  //ai guards the area it starts at
+          
         }
 
         private void Update()
@@ -35,13 +38,37 @@ namespace RPG.Control
 
             if (InAttackRangeOfPlayer() && fighter.CanAttack(player)) //distance between player and enemy - and Player is alive
             {
-                fighter.Attack(player);
-            }
-            else
-            {
-                mover.StartMoveAction(guardPosition);
+                timeSinceLastSawPlayer = 0;
+                AttackBehaviour();
             }
 
+            else if (timeSinceLastSawPlayer < suspicionTime) //suspicious guard state waits at Last LOS position
+            {
+                SuspicionBehaviour();
+            }
+
+            else  //return to starting position
+            {
+                GuardBehaviour();
+            }
+
+            timeSinceLastSawPlayer += Time.deltaTime;
+
+        }
+
+        private void GuardBehaviour()
+        {
+            mover.StartMoveAction(guardPosition);
+        }
+
+        private void SuspicionBehaviour()
+        {
+            GetComponent<ActionScheduler>().CancelCurrentAction(); 
+        }
+
+        private void AttackBehaviour()
+        {
+            fighter.Attack(player);
         }
 
         private bool InAttackRangeOfPlayer()
