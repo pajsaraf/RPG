@@ -9,6 +9,8 @@ namespace RPG.Movement
     public class Mover : MonoBehaviour, IAction
     {
         [SerializeField] Transform target;
+        [SerializeField] float maxSpeed = 6f;
+        
         NavMeshAgent navMeshAgent;
         Ray lastRay;  //last ray shot at screen - no longer used here
         Health health;
@@ -28,19 +30,20 @@ namespace RPG.Movement
 
         }
 
-        public void StartMoveAction(Vector3 destination) 
+        public void StartMoveAction(Vector3 destination, float speedFraction) 
         {
             GetComponent<ActionScheduler>().StartAction(this);  //using rpg.core namespace ctrl . win key
             
             //GetComponent<Fighter>().Cancel();  depricate from 32 on - replaced by IAction interface script
-            MoveTo(destination);
+            MoveTo(destination, speedFraction);
         }
 
 
 
-        public void MoveTo(Vector3 destination)
+        public void MoveTo(Vector3 destination, float speedFraction)
         {
             navMeshAgent.destination = destination;
+            navMeshAgent.speed = maxSpeed * Mathf.Clamp01(speedFraction);  //the clamp is between 0 and 100% of maxSpeed
             navMeshAgent.isStopped = false;
         }
 

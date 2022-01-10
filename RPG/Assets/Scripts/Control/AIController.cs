@@ -16,6 +16,8 @@ namespace RPG.Control
         [SerializeField] PatrolPath patrolPath;
         [SerializeField] float wayPointTorence = 1f;
         [SerializeField] float wayPointDwellTime = 5f;
+        [Range(0, 1)]  // limits the patrol speed to be between 0 and 1
+        [SerializeField] float patrolSpeedFraction = 0.2f;  //divides the speed from mover too make a slower patrol speed
 
         Fighter fighter;
         GameObject player;
@@ -86,7 +88,7 @@ namespace RPG.Control
             }
             if(timeSinceArrivedAtWaypoint > wayPointDwellTime)
             {
-                mover.StartMoveAction(nextPosition);
+                mover.StartMoveAction(nextPosition, patrolSpeedFraction);
             }
             
         }

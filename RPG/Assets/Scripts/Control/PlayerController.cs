@@ -56,8 +56,8 @@ namespace RPG.Control   //creating a name space to control dependencies
             {
                 if(Input.GetMouseButton(0))
                 {
-                    GetComponent<Mover>().MoveTo(hit.point);
-                    GetComponent<Mover>().StartMoveAction(hit.point);
+                    //GetComponent<Mover>().MoveTo(hit.point);
+                    GetComponent<Mover>().StartMoveAction(hit.point, 1f);  // 1f means full speed of enemy
                 }
                 return true;
             }
