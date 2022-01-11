@@ -11,9 +11,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 1.9
   m_Direction: 1
-  m_Center: {x: 0, y: 0.8, z: 0}
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!114 &114466961512654728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54,6 +54,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chaseDistance: 5
+  suspicionTime: 5
+  patrolPath: {fileID: 0}
+  wayPointTorence: 1
+  wayPointDwellTime: 5
+  patrolSpeedFraction: 0.2
 --- !u!1001 &2124990941699543567
 PrefabInstance:
   m_ObjectHideFlags: 0

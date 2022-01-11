@@ -1,5 +1,20 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1160123946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3891391859075448377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09da6b523655d814b9dcc44f593518be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponRange: 2
+  timeBetweenAttacks: 3
+  weaponDamage: 5
 --- !u!114 &114042829768372780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27,21 +42,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2c2d15dc7d90174bba24e316b43f542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1160123946
-MonoBehaviour:
+--- !u!136 &7125834047105239742
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3891391859075448377}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09da6b523655d814b9dcc44f593518be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponRange: 2
-  timeBetweenAttacks: 3
-  weaponDamage: 5
+  m_Radius: 0.3
+  m_Height: 1.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.85, z: 0}
 --- !u!1001 &5827832020040996795
 PrefabInstance:
   m_ObjectHideFlags: 0
