@@ -56,7 +56,10 @@ namespace RPG.Combat
         //animnation event - for the moment in animation when the actual hit is occuring - called from animator not code
         void Hit()
         {
-            //Health healthComponent = target.GetComponent<Health>();   no longer needed, i think
+            if(target == null) 
+            {
+                return;
+            }
             target.TakeDamage(weaponDamage);
         }
 
@@ -86,6 +89,7 @@ namespace RPG.Combat
         {
             StopAttack();
             target = null;
+            GetComponent<Mover>().Cancel();
         }
 
         private void StopAttack()
