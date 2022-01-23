@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RPG.Saving;
 
 namespace RPG.Core
 {
-    public class Health : MonoBehaviour
+    public class Health : MonoBehaviour, ISaveable
     {
         [SerializeField] float healthPoints = 100f;
 
@@ -34,6 +35,23 @@ namespace RPG.Core
             GetComponent<ActionScheduler>().CancelCurrentAction();
 
         }
+
+        //ISaveable interface 
+        public object CaptureState()
+        {
+            return healthPoints;   //healthPoints is a float so its an easy thing to save in retrun     
+        }
+
+        public void RestoreState(object state)
+        {
+            healthPoints = (float)state;  // set healthpoint state by casting state as a float
+
+            if (healthPoints <= 0)  //enemies stay dead on load
+            {
+                Die();
+            }
+        }
+
     }
 
 
