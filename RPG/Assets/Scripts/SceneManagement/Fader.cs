@@ -9,19 +9,16 @@ namespace RPG.SceneManagement
 
         CanvasGroup canvasGroupFader;
         
-        private void Start() 
+        private void Awake() 
         {
             canvasGroupFader = GetComponent<CanvasGroup>();
             //StartCoroutine(FadeOutIn());    
         }
-/*
-        IEnumerator FadeOutIn()
+
+        public void FadeOutImmediate()
         {
-            yield return FadeOut(3f); // wait for coroutine FadeOut is finished
-            print ("FadeOut");
-            yield return FadeIn(1f);
-            print("FadeIn");
-        }  */
+            canvasGroupFader.alpha = 1;
+        }
 
         public IEnumerator FadeOut (float time) 
         {

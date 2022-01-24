@@ -22,6 +22,7 @@ namespace RPG.SceneManagement
         [SerializeField] float fadeInTime = 1f;
         [SerializeField] float fadeWaitTime = 1f;
         
+
         private void OnTriggerEnter(Collider other) 
         {
             //print("Going Inside");
@@ -43,11 +44,18 @@ namespace RPG.SceneManagement
 
             Fader fader = FindObjectOfType<Fader>();   //fadeout
             yield return fader.FadeOut(fadeOutTime);
+
+            //save current level - hp etc
+            SavingWrapper wrapper = FindObjectOfType<SavingWrapper>();
+            wrapper.Save();
+
             yield return SceneManager.LoadSceneAsync(sceneToLoad);  // get the id of the last portal
-            //print("scene loaded");
-            
+
+            wrapper.Load(); //load the current hp level
+
             Portal otherPortal = GetOtherPortal();
             UpdatePlayer (otherPortal);
+            wrapper.Save(); 
 
             yield return new WaitForSeconds(fadeWaitTime); //waiting in white screen for camera to stabilize
             yield return fader.FadeIn(fadeInTime);  //fade back
@@ -57,11 +65,11 @@ namespace RPG.SceneManagement
 
         private void UpdatePlayer(Portal otherPortal)
         {
-            GameObject player = GameObject.FindWithTag("Player");
-            player.GetComponent<NavMeshAgent>().Warp(otherPortal.Spawnpoint.position);
-            //player.transform.position = otherPortal.Spawnpoint.position;
-            player.transform.rotation = otherPortal.Spawnpoint.rotation;
-
+            GameObject player = GameObject.FindWithTag("Player"); //find player
+            player.GetComponent<NavMeshAgent>().enabled = false;  // turn off navmesh agent so it will not get confused with the save game system
+            player.GetComponent<NavMeshAgent>().Warp(otherPortal.Spawnpoint.position); // move player to new position
+            player.transform.rotation = otherPortal.Spawnpoint.rotation; // place at the spawn point
+            player.GetComponent<NavMeshAgent>().enabled = true; // turn on the navmesh agent
         }
 
         private Portal GetOtherPortal()
