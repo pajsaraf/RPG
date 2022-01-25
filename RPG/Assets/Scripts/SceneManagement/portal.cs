@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AI;
-
+//mac compatibility?
 namespace RPG.SceneManagement
 {
     public class Portal : MonoBehaviour

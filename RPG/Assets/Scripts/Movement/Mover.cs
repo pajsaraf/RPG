@@ -65,15 +65,22 @@ namespace RPG.Movement
         //ISavable - 2 states has an object requirement so any c#object = capture anything - restore same thing
         public object CaptureState()
         {
-            return new SerializableVector3(transform.position);
+            Dictionary<string, object> data = new Dictionary<string, object>();
+            data["position"] = new SerializableVector3(transform.position);
+            data["rotation"] = new SerializableVector3(transform.eulerAngles);
+            return data;
+            //return new SerializableVector3(transform.position);
+
         }
 
         public void RestoreState(object state)  //called before start
         {
-            SerializableVector3 position = (SerializableVector3)state; //casting the object state as a vector 3 - will get errors if n ot vector 3 is present
-            
+            //SerializableVector3 position = (SerializableVector3)state; //casting the object state as a vector 3 - will get errors if n ot vector 3 is present
+            Dictionary<string, object> data = (Dictionary<string, object>)state;
             GetComponent<NavMeshAgent>().enabled = false; //cancel navmeshagent to avoid errors
-            transform.position = position.ToVector();  // move to the vector3 position
+            //transform.position = position.ToVector();  // move to the vector3 position
+            transform.position = ((SerializableVector3)data["position"]).ToVector();
+            transform.eulerAngles = ((SerializableVector3)data["rotation"]).ToVector();
             GetComponent<NavMeshAgent>().enabled = true; //restore navmesh agent
 
         }
