@@ -75,7 +75,21 @@ namespace RPG.Combat
             {
                 return;
             }
-            target.TakeDamage(currentWeapon.GetDamage());
+
+            if(currentWeapon.HasProjectile())
+            {
+                currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, target);
+            }
+            else
+            {
+                target.TakeDamage(currentWeapon.GetDamage());
+            }
+
+
+        }
+        void Shoot() //also anim event, arrows use shoot in animation rather than hit
+        {
+            Hit();
         }
 
 
